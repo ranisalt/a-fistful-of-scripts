@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+case "$1" in
+  "start" | "stop")
+    exec systemctl --user $1 mopidy.service;;
+  *)
+    echo "Operation not permitted!";;
+esac
