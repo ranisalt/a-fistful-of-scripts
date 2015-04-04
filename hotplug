@@ -16,5 +16,5 @@ fi
 
 echo ${output}
 ${output}
-pidof i3 && i3-msg -q reload
+i3-msg -q reload
 [[ -x /usr/bin/nitrogen ]] && nitrogen --restore
