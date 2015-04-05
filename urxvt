@@ -1,3 +1,5 @@
-#!/usr/bin/bash
-urxvtc $@
-[[ $? -eq 2 ]] && urxvtd -q -o -f && urxvtc $@
+#!/usr/bin/fish
+urxvtc $argv
+if test $status -eq 2
+	urxvtd -q -o -f; and urxvtc $argv
+end
