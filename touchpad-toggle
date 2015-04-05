@@ -1,0 +1,10 @@
+#!/usr/bin/fish
+set touchstatus (synclient -l | grep -P "TouchpadOff" | cut -c 31)
+
+if test $touchstatus -gt 0
+	set touchstatus 0
+else
+	set touchstatus 1
+end
+
+synclient TouchpadOff=$touchstatus
