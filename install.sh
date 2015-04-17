@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 set -l dest ~/.local/bin
-if test -d $dest
+if [ -d $dest ]
 	mkdir -p $dest
 end
 

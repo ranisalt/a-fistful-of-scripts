@@ -1,5 +1,5 @@
 #!/usr/bin/fish
 urxvtc $argv
-if test $status -eq 2
+if [ $status -eq 2 ]
 	urxvtd -q -o -f; and urxvtc $argv
 end
