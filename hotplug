@@ -7,14 +7,11 @@ read VGA < /sys/class/drm/card0-VGA-1/status
 
 output="xrandr --output LVDS1 --auto"
 if [[ "x$VGA" == "xconnected" ]]; then
-  echo "VGA connected"
   output="${output} --output VGA1 --auto --left-of LVDS1"
 else
-  echo "VGA disconnected"
   output="${output} --output VGA1 --off"
 fi
 
-echo ${output}
 ${output}
 i3-msg -q reload
 [[ -x /usr/bin/nitrogen ]] && nitrogen --restore
