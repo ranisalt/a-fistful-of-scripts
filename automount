@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+label=$(blkid -o value -s LABEL $1)
+if [[ "x${label}" == "x" ]]; then
+	label=$(blkid -o value -s UUID $1)
+fi
+
+if [[ "x${label}" != "x" ]]; then
+	dest="/media/${label}"
+	mkdir -p ${dest}
+	mount -o rw,user $1 ${dest}
+fi
