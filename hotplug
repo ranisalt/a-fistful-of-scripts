@@ -15,3 +15,4 @@ fi
 ${output}
 i3-msg -q reload
 [[ -x /usr/bin/nitrogen ]] && nitrogen --restore
+killall -q -USR1 conky
