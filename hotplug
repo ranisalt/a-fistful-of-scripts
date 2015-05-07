@@ -5,7 +5,7 @@
 
 read VGA < /sys/class/drm/card0-VGA-1/status
 
-output="xrandr --output LVDS1 --auto"
+output="xrandr --output LVDS1 --auto --primary"
 if [[ "x$VGA" == "xconnected" ]]; then
   output="${output} --output VGA1 --auto --left-of LVDS1"
 else
