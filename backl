@@ -1,0 +1,12 @@
+#!/usr/bin/env fish
+set -l config $HOME/.config/backlight
+set -l file (cat $config)
+
+if [ (count $argv) -ne 0 ]
+	set params $argv
+else if [ -n $file ]
+	set params =$file
+end
+
+xbacklight $params
+xbacklight -get > $config
