@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+sh ~/.local/src/PhpStorm-139.732/bin/phpstorm.sh

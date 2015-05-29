@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+sh ~/.local/src/WebStorm-141.506/bin/webstorm.sh
