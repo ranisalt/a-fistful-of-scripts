@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+xautolock -disable
+xset -dpms
+xset s off
