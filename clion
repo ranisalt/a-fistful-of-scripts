@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-exec /usr/local/src/clion-1.0.1/bin/clion.sh
+exec /usr/local/src/clion-1.0.5/bin/clion.sh
