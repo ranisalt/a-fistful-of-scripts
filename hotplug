@@ -15,7 +15,7 @@ if [[ "x$VGA" == "xconnected" ]]; then
 	fi
 	output="${output} --output VGA1 --auto --left-of LVDS1"
 else
-	output="${output} --output VGA1 --off"
+	output="${output} --output LVDS1 --auto --primary --output VGA1 --off"
 fi
 
 ${output}
