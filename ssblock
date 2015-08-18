@@ -1,0 +1,25 @@
+#!/usr/bin/env fish
+# add a cronjob to run this every period shorter than idle timeout, e.g.:
+# * * * * * ~/.local/bin/ssblock
+# to run it every minute
+
+# configuration
+set -l apps popcorn-time mpv
+
+# currently supports only main display because laziness
+set -x DISPLAY :0.0
+
+# check if any app on $apps is up, send keystroke and exit if true
+for app in $apps
+	if [ (pgrep -ic $app) -ne 0 ]
+		xdotool key Ctrl
+		exit
+	end
+end
+
+# check if there is an app in fullscreen, send keystroke if true
+set -l fullscreen (xprop -id (expr substr + (xprop -root _NET_ACTIVE_WINDOW) 41 9) | grep _NET_WM_STATE_FULLSCREEN)
+if [ "$fullscreen" != "" ]
+	xdotool key Ctrl
+end
+
