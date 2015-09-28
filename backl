@@ -10,3 +10,4 @@ end
 
 xbacklight $params
 xbacklight -get > $config
+unset $params
