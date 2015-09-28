@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-find $PWD -maxdepth 1 -type f -regex '.*\.\(jpe?g\|JPE?G\)' -print0 | xargs -0 -P 4 -n 1 -t jpegoptim -q $@
+find $PWD -maxdepth 1 -type f -regex '.*\.\(jpe?g\|JPE?G\)' -print0 | xargs -0 -P $(nproc) -n 1 -t jpegoptim -q $@
