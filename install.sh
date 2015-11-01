@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
-set -l dest ~/.local/bin
-if [ -d $dest ]
-	mkdir -p $dest
+set -l dest $HOME/.local/bin
+if [ ! -d $dest ]
+	mkdir -pv $dest
 end
 
 for i in (find -maxdepth 1 -type f -executable ! -iname "install.sh" -printf "%f\n")
