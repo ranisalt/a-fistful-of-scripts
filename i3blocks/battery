@@ -7,9 +7,9 @@ BAT_PATH="/sys/class/power_supply/BAT$INSTANCE"
 # connection (think desktop), the corresponding block should not be displayed.
 [[ ! -d "$BAT_PATH" ]] && exit
 
-EN_NOW=$(cat $BAT_PATH/energy_now)
-EN_FULL=$(cat $BAT_PATH/energy_full)
-PW_NOW=$(cat $BAT_PATH/power_now)
+EN_NOW=$(< $BAT_PATH/energy_now)
+EN_FULL=$(< $BAT_PATH/energy_full)
+PW_NOW=$(< $BAT_PATH/power_now)
 PERCENT=$(echo "scale=2; 100.0 * $EN_NOW / $EN_FULL" | bc)
 if [ $PW_NOW -eq 0 ]; then
     REMAINING="FULL"
@@ -20,7 +20,7 @@ fi
 echo "$PERCENT% ($REMAINING)"
 echo "$PERCENT% ($REMAINING)"
 
-if [ $(cat $BAT_PATH/status) = "Charging" ]; then
+if [ $(< $BAT_PATH/status) = "Charging" ]; then
     echo "#00FF00"
     exit
 fi
