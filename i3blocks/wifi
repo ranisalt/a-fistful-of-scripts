@@ -29,7 +29,7 @@ INTERFACE="${BLOCK_INSTANCE:-$(awk '/^w/{ print $1; exit }' /proc/net/route)}"
 
 ADDRESS=$(ifconfig $INTERFACE | awk '/inet/{ print $2; exit }')
 QUALITY=$(grep $INTERFACE /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
-ESSID=$(iwconfig $INTERFACE | awk '/ESSID:/{ print substr($4, 8, length($4)-8)}')
+ESSID=$(iwconfig $INTERFACE | awk '/ESSID:/{ match($0, /:"(.*)"/, a); print a[1] }')
 
 #------------------------------------------------------------------------
 
