@@ -24,11 +24,12 @@ else
   IF=$(ip route | awk '/^default/ { print $5 ; exit }')
 fi
 
+
 #------------------------------------------------------------------------
 
 # As per #36 -- It is transparent: e.g. if the machine has no battery or wireless
 # connection (think desktop), the corresponding block should not be displayed.
-[[ ! -d /sys/class/net/${IF} ]] && exit
+[[ -z ${IF} || ! -d /sys/class/net/${IF} ]] && exit
 
 #------------------------------------------------------------------------
 
