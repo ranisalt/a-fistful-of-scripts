@@ -10,7 +10,7 @@ BAT_PATH="/sys/class/power_supply/BAT$INSTANCE"
 EN_NOW=$(< $BAT_PATH/energy_now)
 EN_FULL=$(< $BAT_PATH/energy_full)
 PW_NOW=$(< $BAT_PATH/power_now)
-PERCENT=$(echo "scale=2; 100.0 * $EN_NOW / $EN_FULL" | bc)
+PERCENT=$(printf '%.2f' `echo "scale=2; 100.0 * $EN_NOW / $EN_FULL" | bc`)
 if [ $PW_NOW -eq 0 ]; then
     REMAINING="FULL"
 else
