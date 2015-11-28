@@ -33,7 +33,7 @@ ESSID=$(iwconfig $INTERFACE | awk '/ESSID:/{ match($0, /:"(.*)"/, a); print a[1]
 
 #------------------------------------------------------------------------
 
-echo "$ADDRESS ($QUALITY% @ $ESSID)" # full text
+echo "$QUALITY% @ $ESSID" # full text
 echo "$QUALITY%" # short text
 
 # color
