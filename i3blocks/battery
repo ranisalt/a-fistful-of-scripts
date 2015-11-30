@@ -10,25 +10,40 @@ BAT_PATH="/sys/class/power_supply/BAT$INSTANCE"
 EN_NOW=$(< $BAT_PATH/energy_now)
 EN_FULL=$(< $BAT_PATH/energy_full)
 PW_NOW=$(< $BAT_PATH/power_now)
-PERCENT=$(printf '%.2f' `echo "scale=2; 100.0 * $EN_NOW / $EN_FULL" | bc`)
+PERCENT=$(echo "100 * $EN_NOW / $EN_FULL" | bc)
 if [ $PW_NOW -eq 0 ]; then
-    REMAINING="FULL"
+    REMAINING="∞"
 else
-    REMAINING=$(date '+%T' -u -d '@'`expr 3600 \* $EN_NOW / $PW_NOW`)
+    REMAINING=$(date '+%R' -u -d '@'`expr 3600 \* $EN_NOW / $PW_NOW`)
 fi
-
-echo "$PERCENT% ($REMAINING)"
-echo "$PERCENT% ($REMAINING)"
 
 if [ $(< $BAT_PATH/status) = "Charging" ]; then
-    echo "#00FF00"
-    exit
+    GLYPH=⚡
+else
+    if [ $PERCENT -le 10 ]; then
+        GLYPH=""
+    elif [ $PERCENT -le 35 ]; then
+        GLYPH=""
+    elif [ $PERCENT -le 65 ]; then
+        GLYPH=""
+    elif [ $QUARTERS -le 90 ]; then
+        GLYPH=""
+    else
+        GLYPH=""
+    fi
+
+    TWENTIES=$(echo "$PERCENT / 5" | bc)
+    if [ $TWENTIES -eq 0 ]; then
+        COLOR="#FF0000"
+    elif [ $TWENTIES -eq 1 ]; then
+        COLOR="#FFAE00"
+    elif [ $TWENTIES -eq 2 ]; then
+        COLOR="#FFF600"
+    fi
+    unset TWENTIES
 fi
 
-if [ $(echo "$PERCENT < 5" | bc) -eq 1 ]; then
-    echo "#FF0000"
-elif [ $(echo "$PERCENT < 10" | bc) -eq 1 ]; then
-    echo "#FFAE00"
-elif [ $(echo "$PERCENT < 15" | bc) -eq 1 ]; then
-    echo "#FFF600"
-fi
+echo "$GLYPH $PERCENT% ($REMAINING)"
+echo "$GLYPH $PERCENT% ($REMAINING)"
+echo $COLOR
+
