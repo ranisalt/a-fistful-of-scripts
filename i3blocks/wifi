@@ -36,7 +36,7 @@ ESSID=$(iw dev $INTERFACE link | awk '/SSID/{ print $2 }')
 echo "$ESSID" # full text
 echo "$QUALITY" | awk '{ printf "%d%%\n", int($0 * 100) }' # short text
 
-if [ -n $ADDRESS ]; then
+if [[ -n $ADDRESS ]]; then
     echo $QUALITY | awk '{
         printf "#%.2X%.2X%.2X", sqrt(1 - $0) * 255, sqrt($0) * 255, 0
     }'
