@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+exec tabbed -f -r 2 $HOME/.local/bin/surf -e '' $@ https://www.google.com
