@@ -1,2 +1,0 @@
-#!/usr/bin/env sh
-exec /usr/local/src/pycharm-4.5.2/bin/pycharm.sh
