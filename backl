@@ -1,13 +1,10 @@
-#!/usr/bin/env fish
-set -l config $HOME/.config/backlight
-set -l file (cat $config)
+#!/usr/bin/bash
+CONFIG="${HOME}/.config/backlight"
 
-if [ (count $argv) -ne 0 ]
-	set params $argv
-else if [ -n $file ]
-	set params =$file
-end
+if [[ $# -ne 0 ]]; then
+	xbacklight $@
+elif [[ -f "${CONFIG}" ]]; then
+	xbacklight =$(< $CONFIG)
+fi
 
-xbacklight $params
-xbacklight -get > $config
-unset $params
+xbacklight -get > $CONFIG
