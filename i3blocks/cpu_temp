@@ -1,7 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/bash
 
 TEMP_PATH="/sys/class/hwmon/hwmon0"
-
 [[ ! -d $TEMP_PATH ]] && exit
 
 TEMP=$(expr `< $TEMP_PATH/temp1_input` / 1000)
