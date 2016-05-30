@@ -26,7 +26,7 @@ else
         GLYPH=""
     elif [ $PERCENT -le 65 ]; then
         GLYPH=""
-    elif [ $QUARTERS -le 90 ]; then
+    elif [ $PERCENT -le 90 ]; then
         GLYPH=""
     else
         GLYPH=""

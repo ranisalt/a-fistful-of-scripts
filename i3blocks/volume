@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This defaults to the current running sink
-SINK="${BLOCK_INSTANCE:-$(pactl list short | grep RUNNING | cut -f2)}"
+SINK="${BLOCK_INSTANCE:-$(pactl list short | grep -E 'RUNNING|SUSPENDED' -m 1 | cut -f2)}"
 
 # The first parameter sets the step to change the volume by (and units to display)
 # This may be in in % or dB (eg. 5% or 3dB)
