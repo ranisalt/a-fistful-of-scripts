@@ -40,7 +40,7 @@ case $1 in
 esac
 
 # if no interface is found, use the first device with a global scope
-IPADDR=$(ip addr show $IF | perl -n -e "/$AF ([^\/]+).* scope global/ && print \$1 and exit")
+IPADDR=$(ip addr show $IF | awk "/$AF.*scope global/{print \$2; exit}" | cut -d '/' -f 1)
 SPEED=$(ethtool $IF | awk '/Speed:/{ print $2 }')
 
 case $BLOCK_BUTTON in
