@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 # Copyright (C) 2014 Alexander Keller <github@nycroth.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -22,13 +22,13 @@ INTERFACE="${BLOCK_INSTANCE:-$(awk '/^w/{ print $1; exit }' /proc/net/route)}"
 
 # As per #36 -- It is transparent: e.g. if the machine has no battery or wireless
 # connection (think desktop), the corresponding block should not be displayed.
-[[ ! -d /sys/class/net/${INTERFACE}/wireless ]] ||
-    [[ "$(< /sys/class/net/$INTERFACE/operstate)" = 'down' ]] && exit
+[ ! -d /sys/class/net/${INTERFACE}/wireless ] ||
+    [ "$(cat /sys/class/net/$INTERFACE/operstate)" = 'down' ] && exit
 
 #------------------------------------------------------------------------
 
 ADDRESS=$(ip a s $INTERFACE | awk '/inet/{ print substr($2, 1, length($2) - 3) }')
-[[ -z $ADDRESS ]] && exit
+[ -z $ADDRESS ] && exit
 
 QUALITY=$(grep $INTERFACE /proc/net/wireless | awk '{ print $3 / 70 }')
 ESSID=$(iw dev $INTERFACE link | awk '/SSID/{ print $2 }')
@@ -38,7 +38,7 @@ ESSID=$(iw dev $INTERFACE link | awk '/SSID/{ print $2 }')
 echo "$ESSID" # full text
 echo "$QUALITY" | awk '{ printf "%d%%\n", int($0 * 100) }' # short text
 
-if [[ -n $ADDRESS ]]; then
+if [ -n $ADDRESS ]; then
     echo $QUALITY | awk '{
         printf "#%.2X%.2X%.2X", sqrt(1 - $0) * 255, sqrt($0) * 255, 0
     }'

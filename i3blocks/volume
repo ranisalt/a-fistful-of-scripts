@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-# This defaults to the current running sink
+# This defaults to the current active sink
 SINK="${BLOCK_INSTANCE:-$(pactl list short | grep -E 'RUNNING|SUSPENDED' -m 1 | cut -f2)}"
 
 # The first parameter sets the step to change the volume by (and units to display)

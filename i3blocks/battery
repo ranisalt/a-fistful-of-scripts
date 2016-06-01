@@ -5,11 +5,11 @@ BAT_PATH="/sys/class/power_supply/BAT$INSTANCE"
 
 # As per #36 -- It is transparent: e.g. if the machine has no battery or wireless
 # connection (think desktop), the corresponding block should not be displayed.
-[[ ! -d "$BAT_PATH" ]] && exit
+    [ ! -d "$BAT_PATH" ] && exit
 
-EN_NOW=$(< $BAT_PATH/energy_now)
-EN_FULL=$(< $BAT_PATH/energy_full)
-PW_NOW=$(< $BAT_PATH/power_now)
+EN_NOW=$(cat $BAT_PATH/energy_now)
+EN_FULL=$(cat $BAT_PATH/energy_full)
+PW_NOW=$(cat $BAT_PATH/power_now)
 PERCENT=$(echo "100 * $EN_NOW / $EN_FULL" | bc)
 if [ $PW_NOW -eq 0 ]; then
     REMAINING="∞"
@@ -17,7 +17,7 @@ else
     REMAINING=$(date '+%R' -u -d '@'`expr 3600 \* $EN_NOW / $PW_NOW`)
 fi
 
-if [ $(< $BAT_PATH/status) = "Charging" ]; then
+if [ $(cat $BAT_PATH/status) = "Charging" ]; then
     GLYPH=⚡
 else
     if [ $PERCENT -le 10 ]; then

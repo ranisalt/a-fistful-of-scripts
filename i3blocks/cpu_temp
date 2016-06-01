@@ -1,14 +1,14 @@
-#!/usr/bin/bash
+#!/usr/bin/env sh
 
 TEMP_PATH="/sys/class/hwmon/hwmon0"
-[[ ! -d $TEMP_PATH ]] && exit
+[ ! -d $TEMP_PATH ] && exit
 
-TEMP=$(expr `< $TEMP_PATH/temp1_input` / 1000)
+TEMP=$(expr `cat $TEMP_PATH/temp1_input` / 1000)
 
 echo $TEMP ºC
 echo $TEMP ºC
 
-TEMP_MAX=$(expr `< $TEMP_PATH/temp1_max` / 1000)
+TEMP_MAX=$(expr `cat $TEMP_PATH/temp1_max` / 1000)
 if [ $TEMP -gt $TEMP_MAX ]; then
     echo "#FF0000"
 fi
