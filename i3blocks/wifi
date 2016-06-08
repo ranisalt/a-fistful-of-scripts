@@ -31,7 +31,7 @@ ADDRESS=$(ip a s $INTERFACE | awk '/inet/{ print substr($2, 1, length($2) - 3) }
 [ -z "${ADDRESS}" ] && exit
 
 QUALITY=$(grep $INTERFACE /proc/net/wireless | awk '{ print $3 / 70 }')
-ESSID=$(iw dev $INTERFACE link | awk '/SSID/{ print $2 }')
+ESSID=$(iw dev $INTERFACE link | awk '/SSID/{print substr($0, 8)}')
 
 #------------------------------------------------------------------------
 
