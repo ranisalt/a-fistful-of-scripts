@@ -6,7 +6,9 @@ URL="ipinfo.io"
 FORMAT="-?[\d\.]+,-?[\d\.]+"
 
 # scrape coordinates from return JSON
-read -d ',' LAT LON <<< $(curl -s "$URL" | grep -oP -- "$FORMAT")
+read LAT LON <<EOF
+$(curl -s "$URL" | grep -oP -- "$FORMAT" | tr ',' '\n')
+EOF
 
 # start xflux in daemon mode (forking)
 exec $(which xflux) -l $LAT -g $LON $@
