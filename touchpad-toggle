@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 DEVICE=$(xinput list | awk '/Touchpad/' | cut -c55-56)
-declare $(xinput list-props $DEVICE | awk '/Device Enabled/{
+declare $(xinput list-props "$DEVICE" | awk '/Device Enabled/{
     match($3, "([0-9]+)", a)
     printf "PROPERTY=%s STATUS=%s\n", a[0], $4
 }')
 
 STATUS=$([[ $STATUS -eq 0 ]] && echo 1 || echo 0)
-xinput set-prop $DEVICE $PROPERTY $STATUS
+xinput set-prop "$DEVICE" "$PROPERTY" "$STATUS"

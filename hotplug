@@ -3,7 +3,7 @@
 # KERNEL=="card0", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/ranieri/.Xauthority", RUN+="/path/to/this/file"
 # Don't forget to set the execute permission.
 
-read VGA < /sys/class/drm/card0-VGA-1/status
+read -r VGA < /sys/class/drm/card0-VGA-1/status
 LID=$(awk '{print $2}' /proc/acpi/button/lid/LID/state)
 
 output="xrandr"
@@ -18,8 +18,8 @@ else
 	output="${output} --output LVDS1 --auto --primary --output VGA1 --off"
 fi
 
-${output}
+eval "$output"
 i3-msg -q reload
 [[ -x /usr/bin/nitrogen ]] && nitrogen --restore
 killall -q -USR1 conky
-unset $output
+unset output

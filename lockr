@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
-ICON="$HOME/.config/lock.png"
+ICON="${HOME}/.config/lock.png"
 IMAGE=$(mktemp --suffix=".png")
-maim --format png /dev/stdout | convert - -blur 2x8 "$HOME/.config/lock.png" -gravity center -composite "$IMAGE"
+maim --format png /dev/stdout | convert - -blur 2x8 "$ICON" -gravity center -composite "$IMAGE"
 
 i3lock -i "$IMAGE" -n
 rm "$IMAGE"

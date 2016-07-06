@@ -2,7 +2,7 @@
 MODE=$1
 shift
 
-rofi -show $MODE -glob \
+rofi -show "$MODE" -glob \
     -bc '#d64937' -bg '#2d2d2d' -hlbg '#333333' -fg '#dedede' -hlfg '#f9f9f9' \
-    -font "Roboto 16" -bw 0 -eh 2 -hide-scrollbar -opacity 85 -padding 256 \
-    -separator-style 'solid' -width 100 $@
+    -font "Fira Code 16" -bw 0 -eh 2 -hide-scrollbar -opacity 85 -padding 256 \
+    -separator-style 'solid' -width 100 "$@"
