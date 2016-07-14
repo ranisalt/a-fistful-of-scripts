@@ -45,5 +45,9 @@ fi
 
 echo "$GLYPH $PERCENT% ($REMAINING)"
 echo "$GLYPH $PERCENT% ($REMAINING)"
-echo $COLOR
+[ -n "$COLOR" ] && echo "$COLOR"
+unset GLYPH
+unset PERCENT
+unset REMAINING
+unset COLOR
 
