@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/sh -e
 
 INSTANCE=${BLOCK_INSTANCE:-0}
 BAT_PATH="/sys/class/power_supply/BAT$INSTANCE"
