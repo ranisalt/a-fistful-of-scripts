@@ -1,5 +1,4 @@
-#!/usr/bin/sh
-set -e
+#!/usr/bin/sh -e
 
 # geocode IP address
 URL="ipinfo.io"
@@ -7,7 +6,7 @@ FORMAT="-?[\d\.]+,-?[\d\.]+"
 
 # scrape coordinates from return JSON
 read -r LAT LON <<EOF
-$(curl -s "$URL" | grep -oP -- "$FORMAT" | tr ',' '\n')
+$(curl -s "$URL" | grep -oP -- "$FORMAT" | tr ',' ' ')
 EOF
 
 # start xflux in daemon mode (forking)
