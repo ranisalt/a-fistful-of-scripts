@@ -47,7 +47,9 @@ echo "$GLYPH $PERCENT% ($REMAINING)"
 echo "$GLYPH $PERCENT% ($REMAINING)"
 [ -n "$COLOR" ] && echo "$COLOR"
 unset GLYPH
-unset PERCENT
 unset REMAINING
 unset COLOR
 
+if [ $PERCENT -le 10 ]; then
+    exit 33
+fi

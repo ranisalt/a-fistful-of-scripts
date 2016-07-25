@@ -11,4 +11,5 @@ echo $TEMP ºC
 TEMP_MAX=$(expr `cat $TEMP_PATH/temp1_max` / 1000)
 if [ $TEMP -gt $TEMP_MAX ]; then
     echo "#FF0000"
+    exit 33
 fi
