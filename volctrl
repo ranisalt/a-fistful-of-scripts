@@ -1,0 +1,15 @@
+#!/usr/bin/sh -e
+
+# This defaults to the current active sink
+SINK="$(pactl list short | grep -E 'RUNNING|SUSPENDED' -m 1 | cut -f2)"
+
+# The first parameter sets the step to change the volume by (and units to display)
+# This may be in in % or dB (eg. 5% or 3dB)
+STEP="${1:-5%}"
+
+#------------------------------------------------------------------------
+
+case "$1" in
+  "toggle") pactl set-sink-mute "$SINK" toggle ;;
+  *) pactl set-sink-volume "$SINK" "$1" ;;
+esac
