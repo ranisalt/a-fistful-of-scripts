@@ -15,7 +15,9 @@ volume() {
     }/muted:/ && def{
         mut = \$2 == \"yes\"
     }/volume:/ && def{
-        if (mut) {printf \"muted (%s)\", \$5} else {print \$5} exit
+        vol = \$5
+    }END{
+        if (mut) {printf \"muted (%s)\", vol} else {print vol}
     }"
 }
 
