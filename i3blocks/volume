@@ -14,7 +14,7 @@ volume() {
         def = \$2 == \"<${SINK}>\"
     }/muted:/ && def{
         mut = \$2 == \"yes\"
-    }/volume:/ && def{
+    }/^\s*volume:/ && def{
         vol = \$5
     }END{
         if (mut) {printf \"muted (%s)\", vol} else {print vol}
