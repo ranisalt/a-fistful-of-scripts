@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+arg=$1
+shift
+
+case $arg in
+    -c)
+        maim $@ --format png /dev/stdout | xclip -selection clipboard -t image/png -i;;
+    -p)
+        maim $@ --format png "$HOME/Pictures/Screenshots/$(date +%F-%T).png";;
+esac
