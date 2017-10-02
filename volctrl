@@ -10,6 +10,8 @@ STEP="${1:-5%}"
 #------------------------------------------------------------------------
 
 case "$1" in
+  "mute") pactl set-sink-mute "$SINK" 1 ;;
   "toggle") pactl set-sink-mute "$SINK" toggle ;;
+  "unmute") pactl set-sink-mute "$SINK" 0 ;;
   *) pactl set-sink-volume "$SINK" "$1" ;;
 esac
