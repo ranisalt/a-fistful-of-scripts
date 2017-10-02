@@ -2,5 +2,5 @@
 SCRIPT="python $(dirname "$(readlink -f "$0")")/facemark.py"
 OPTION=$(eval "${SCRIPT} --list" | rofi -dmenu)
 if [ -n "$OPTION" ]; then
-    eval "${SCRIPT} ${OPTION}" | xsel -ip
+    eval "${SCRIPT} ${OPTION}" | xclip
 fi

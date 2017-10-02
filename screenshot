@@ -4,7 +4,7 @@ shift
 
 case $arg in
     -c)
-        maim $@ --format png /dev/stdout | xclip -selection clipboard -t image/png -i;;
+        maim $@ -f png -u /dev/stdout | xclip -t image/png;;
     -p)
-        maim $@ --format png "$HOME/Pictures/Screenshots/$(date +%F-%T).png";;
+        maim $@ -f png -u "$HOME/Pictures/Screenshots/$(date +%F-%T).png";;
 esac
