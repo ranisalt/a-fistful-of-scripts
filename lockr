@@ -1,20 +1,35 @@
 #!/usr/bin/env bash
-IMAGE=$(mktemp --suffix=".png")
+IMAGE="/tmp/lockr/cache.png"
 
-HW=$(xrandr -q | awk '/Screen 0/{printf "%dx%d", $8, $10}')
+if [ -z "$SWAYSOCK" ]; then
+    LOCKER="i3lock -n"
+    # TODO: grab the largest screen
+    RESOLUTION=$(xrandr -q | awk '/Screen 0/{printf "%dx%d", $8, $10}')
+
+    # i3lock doesn't autoscale image, sux ballz
+    SCALE="-scale $RESOLUTION^ -gravity center -extent $RESOLUTION"
+else
+    LOCKER="swaylock"
+    RESOLUTION=$(swaymsg -t get_outputs | jq -r 'max_by(.rect.width).rect | "\(.width)x\(.height)"')
+fi
 
 [ -d /tmp/lockr ] || mkdir -p /tmp/lockr
-# if [ ! -f "/tmp/lockr/$HW.png" ]; then
+if [ ! -f "$IMAGE" ]; then
     SHRINK="-sample 50% -blur 0x4"
     # BLUR="-blur -0x5"
     # STRETCH="-sample 400% -blur 0x1"
     STRETCH="-magnify -blur 0x1"
-    SCALE="-scale $HW^ -gravity center -extent $HW"
+
+    if
     # ICON="${HOME}/.config/lock.png -gravity center -composite"
 
-    playerctl pause && volctrl mute && pkill -RTMIN+1 i3blocks
+    # playerctl pause
+    volctrl mute
+    pkill -RTMIN+1 i3blocks
     # maim -f jpg -m 3 -u | convert - ${SHRINK} ${BLUR} ${STRETCH} ${ICON} png:- | i3lock -n -i /dev/stdin
-    convert "$(cat $HOME/.cache/wal/wal)" ${SHRINK} ${STRETCH} ${SCALE} $IMAGE
-# fi
 
-i3lock -n -i $IMAGE
+    source $HOME/.cache/wal/colors.sh
+    convert "$wallpaper" ${SHRINK} ${STRETCH} ${SCALE} $IMAGE
+fi
+
+$LOCKER -i $IMAGE
