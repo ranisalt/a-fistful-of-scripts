@@ -1,0 +1,7 @@
+#!/usr/bin/sh -e
+
+APIKEY="f3b38ccf61a4af6fb9afd3ca846c4c62"
+URL="api.openweathermap.org/data/2.5/weather?id=${BLOCK_INSTANCE}&units=metric&APPID=${APIKEY}"
+
+curl -s "$URL"
+#| awk '{match($0, /"temp":[0-9]*/); printf "%s ºC", substr($0, RSTART+7, RLENGTH-7)}'
