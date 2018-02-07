@@ -16,7 +16,7 @@ else
 fi
 
 if [ $POWER_SUPPLY_STATUS = "Charging" ]; then
-    GLYPH=⚡
+    GLYPH=
 else
     if [ $PERCENT -le 10 ]; then
         GLYPH=""
