@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-IMAGE="/tmp/lockr/cache.png"
+INPUT="/tmp/.locked.png"
+[ ! -f "$INPUT" ] && hotplug $(< ~/.cache/wal/wal)
 
 if [ -z "$SWAYSOCK" ]; then
     LOCKER="i3lock -n"
@@ -13,23 +14,4 @@ else
     RESOLUTION=$(swaymsg -t get_outputs | jq -r 'max_by(.rect.width).rect | "\(.width)x\(.height)"')
 fi
 
-[ -d /tmp/lockr ] || mkdir -p /tmp/lockr
-if [ ! -f "$IMAGE" ]; then
-    SHRINK="-sample 50% -blur 0x4"
-    # BLUR="-blur -0x5"
-    # STRETCH="-sample 400% -blur 0x1"
-    STRETCH="-magnify -blur 0x1"
-
-    if
-    # ICON="${HOME}/.config/lock.png -gravity center -composite"
-
-    # playerctl pause
-    volctrl mute
-    pkill -RTMIN+1 i3blocks
-    # maim -f jpg -m 3 -u | convert - ${SHRINK} ${BLUR} ${STRETCH} ${ICON} png:- | i3lock -n -i /dev/stdin
-
-    source $HOME/.cache/wal/colors.sh
-    convert "$wallpaper" ${SHRINK} ${STRETCH} ${SCALE} $IMAGE
-fi
-
-$LOCKER -i $IMAGE
+$LOCKER -i $INPUT
