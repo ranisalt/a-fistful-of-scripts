@@ -1,15 +1,11 @@
 #!/usr/bin/sh -e
 
-TEMP_PATH="/sys/class/hwmon/hwmon0"
-[ ! -d $TEMP_PATH ] && exit
-
-TEMP=$(expr `cat $TEMP_PATH/temp1_input` / 1000)
+export $(sensors -u acpitz-virtual-0 | awk '/temp1_input:/{printf "TEMP=%d\n", $2}/temp1_crit:/{printf "CRIT=%d\n", $2}')
 
 echo $TEMP ºC
 echo $TEMP ºC
 
-TEMP_MAX=$(expr `cat $TEMP_PATH/temp1_max` / 1000)
-if [ $TEMP -gt $TEMP_MAX ]; then
+if [ $TEMP -gt $CRIT ]; then
     echo "#FF0000"
     exit 33
 fi
