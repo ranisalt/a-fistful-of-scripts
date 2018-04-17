@@ -3,23 +3,34 @@
 # KERNEL=="card0", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/ranieri/.Xauthority", RUN+="/path/to/this/file"
 # Don't forget to set the execute permission.
 
-read -r VGA < /sys/class/drm/card0-VGA-1/status
+read VGA < /sys/class/drm/card0-VGA-1/status
+read HDMI < /sys/class/drm/card0-HDMI-A-1/status
 LID=$(awk '{print $2}' /proc/acpi/button/lid/LID/state)
 
-output="xrandr"
-if [[ "x$VGA" == "xconnected" ]]; then
-	if [[ "x$LID" == "xclosed" ]]; then
-		output="${output} --output LVDS1 --off"
-	else
-		output="${output} --output LVDS1 --auto --primary"
-	fi
-	output="${output} --output VGA1 --auto --left-of LVDS1"
+flags=""
+
+if [[ "x$LID" == "xclosed" ]]; then
+	flags="${flags} --output LVDS-1 --off"
 else
-	output="${output} --output LVDS1 --auto --primary --output VGA1 --off"
+	flags="${flags} --output LVDS-1 --auto --primary"
 fi
 
-eval "$output"
+if [[ "x$VGA" == "xconnected" ]]; then
+	if [[ "x$LID" == "xclosed" ]]; then
+		flags="${flags} --output VGA-1 --auto --primary"
+	else
+		flags="${flags} --output VGA-1 --auto --left-of LVDS-1"
+	fi
+elif [[ "x$HDMI" == "xconnected" ]]; then
+	if [[ "x$LID" == "xclosed" ]]; then
+		flags="${flags} --output HDMI-1 --auto --primary"
+	else
+		flags="${flags} --output HDMI-1 --auto --left-of LVDS-1"
+	fi
+else
+	flags="${flags} --output VGA-1 --off --output HDMI-1 --off"
+fi
+
+xrandr ${flags}
 i3-msg -q reload
-[[ -x /usr/bin/nitrogen ]] && nitrogen --restore
-killall -q -USR1 conky
-unset output
+restore-desktop
