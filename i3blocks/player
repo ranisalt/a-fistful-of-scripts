@@ -1,8 +1,0 @@
-#!/usr/bin/env sh
-
-[ "x$(playerctl status)" != "xPlaying" ] && exit
-
-ARTIST=$(playerctl metadata 'xesam:artist')
-TITLE=$(playerctl metadata 'xesam:title' | sed 's| - .*||')
-
-echo $ARTIST - $TITLE
