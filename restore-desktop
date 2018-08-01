@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-wal -nsi $(awk -F '=' '/file/{print $2; exit}' $HOME/.config/nitrogen/bg-saved.cfg)
-i3-msg restart

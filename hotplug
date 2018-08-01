@@ -33,4 +33,4 @@ fi
 
 xrandr ${flags}
 i3-msg -q reload
-restore-desktop
+systemctl --user restart dunst.service nitrogen-restore.service polybar.service redshift.service xss-lock.service
