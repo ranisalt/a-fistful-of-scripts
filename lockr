@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+activate() {
+    xset +dpms dpms 5 10 15
+}
+deactivate() {
+    xset dpms 0 0 0
+}
+
+trap deactivate HUP INT TERM
+activate
+i3lock --nofork --color="0e0e0e" --image="$HOME/.config/lockr.png"
+deactivate
