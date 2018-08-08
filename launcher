@@ -2,6 +2,4 @@
 MODE=$1
 shift
 
-rofi -show "$MODE" -glob \
-    -font "Fira Code 12" -bw 0 -eh 1 -line-margin 5 -hide-scrollbar \
-    -padding 256 -width 100 -separator-style 'solid' -i "$@"
+rofi -show "$MODE" "$@"
